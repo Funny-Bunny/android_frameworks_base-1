@@ -186,4 +186,9 @@
     <string name="quick_settings_heads_up_on">Heads up notifications allowed</string>
     <string name="quick_settings_heads_up_off">Heads up notifications disabled</string>
     <string name="quick_settings_heads_up">Heads up notifications</string>
+
+    <!-- OnTheSpot: Action denial button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_deny">NO THANKS</string>
+    <!-- OnTheSpot: Action confirmation button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_confirm">OKAY</string>
 </resources>
