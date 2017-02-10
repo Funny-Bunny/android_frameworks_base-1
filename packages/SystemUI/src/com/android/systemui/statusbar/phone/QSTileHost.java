@@ -56,6 +56,7 @@ import com.android.systemui.qs.tiles.FlashlightTile;
 import com.android.systemui.qs.tiles.GoogleAssistTile;
 import com.android.systemui.qs.tiles.GoogleVoiceAssistTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
+import com.android.systemui.qs.tiles.HighBrightnessTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.ImmersiveTile;
 import com.android.systemui.qs.tiles.IntentTile;
@@ -96,7 +97,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Platform implementation of the quick settings tile host **/
 public class QSTileHost implements QSTile.Host, Tunable {
     private static final String TAG = "QSTileHost";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
@@ -123,6 +123,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
     private final BatteryController mBattery;
     private final StatusBarIconController mIconController;
     private final TileServices mServices;
+    private final boolean mHighBrightnessSupported;
 
     private final List<Callback> mCallbacks = new ArrayList<>();
     private final AutoTileManager mAutoTiles;
@@ -158,6 +159,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
         mIconController = iconController;
         mNextAlarmController = nextAlarmController;
         mProfileController = new ManagedProfileController(this);
+        mHighBrightnessSupported = mContext.getResources().getBoolean(com.android.internal.R.bool.config_supportHighBrightness);
 
         final HandlerThread ht = new HandlerThread(QSTileHost.class.getSimpleName(),
                 Process.THREAD_PRIORITY_BACKGROUND);
@@ -472,6 +474,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
         else if (tileSpec.equals("adb_network")) return new AdbOverNetworkTile(this);
         else if (tileSpec.equals("headsup")) return new HeadsUpTile(this);
         else if (tileSpec.equals("immersive")) return new ImmersiveTile(this);
+        else if (tileSpec.equals("high_brightness") && mHighBrightnessSupported) return new HighBrightnessTile(this);
         // Intent tiles.
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(this,tileSpec);
         else if (tileSpec.startsWith(CustomTile.PREFIX)) return CustomTile.create(this,tileSpec);
