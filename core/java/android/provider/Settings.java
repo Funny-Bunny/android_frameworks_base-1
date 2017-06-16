@@ -3688,6 +3688,12 @@ public final class Settings {
          */
 
         /**
+         * Unlock keystore with fingerprint after reboot
+         * @hide
+         */
+        public static final String FP_UNLOCK_KEYSTORE = "fp_unlock_keystore";
+
+        /**
          * Whether or not to allow quick settings expansion with one swipe on the fingerprint sensor.
          * @hide
          */
